@@ -4,16 +4,14 @@ import Booking from '../Booking/Booking'
 
 
 const ReservationsContainer = ({ reservations, removeBooking }) => {
-    console.log(reservations)
-    const potato = reservations.map(reservation => {
-
+    const booking = reservations.map(reservation => {
         return ( 
             <Booking 
                 id={reservation.id}
                 name={reservation.name}
                 date={reservation.date}
                 time={reservation.time}
-                numGuests={reservation.numGuests}
+                number={reservation.number}
                 key={reservation.id}
                 removeBooking={removeBooking}
             />
@@ -22,7 +20,7 @@ const ReservationsContainer = ({ reservations, removeBooking }) => {
 
     return (
         <section> 
-            {potato}
+            {booking}
         </section>
     )
 }
