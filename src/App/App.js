@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-// import Form from '../Form/Form'
+import Form from '../Form/Form'
 import ReservationsContainer from '../ReservationsContainer/ReservationsContainer'
+
 
 class App extends Component {
   constructor()  {
@@ -19,12 +20,27 @@ class App extends Component {
         .catch(errMsg => this.setState({error: errMsg}))
   }
 
-  addBooking() {
-
+  addBooking(newBooking) {
+    console.log(newBooking)
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(newBooking),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    fetch('http://localhost:3001/api/v1/reservations', options)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      // .then(booking => this.setState({ reservations: [...this.state.reservations, booking]}))
+      .catch(errorMessage => this.setState({error: errorMessage}))
   }
 
-  removeBooking() {
-
+  removeBooking(id) {
+    fetch(`http://localhost:3001/api/v1/reservations/${id}`)
+      .then(response => response.json())
+      .then(booking => this.setState({reservations: [...this.state.reservations, booking]}))
+      .catch(errorMessage => this.setState({error: errorMessage}))
   }
 
 
@@ -33,7 +49,7 @@ class App extends Component {
       <div className="App">
         <h1 className='app-title'>Turing Cafe Reservations</h1>
         <div className='resy-form'>
-          {/* <Form addBooking={this.addBooking}/>  */}
+          <Form addBooking={this.addBooking}/> 
         </div>
         <div className='resy-container'>
           <ReservationsContainer reservations={this.state.reservations}removeBooking={this.removeBooking}/>

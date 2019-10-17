@@ -1,0 +1,10 @@
+article {
+    display: grid;
+    background-color: #FFFFFF;
+    color: #008080; 
+    border-color: #008080;
+    border-radius: 5px;
+    border-width: 2px;
+    border-style: solid;
+    padding: 20px;
+}
