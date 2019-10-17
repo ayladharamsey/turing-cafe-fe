@@ -65,7 +65,6 @@ class Form extends Component {
                     onChange={(e) => this.handleChange(e)}
                 />
                 <button onClick={(e) => this.handleSubmit(e)}>Make Reservations</button>
-
             </section>
 
         )

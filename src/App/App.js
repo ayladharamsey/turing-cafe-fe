@@ -11,6 +11,9 @@ class App extends Component {
       reservations: [],
       error: '' 
     }
+    this.addBooking = this.addBooking.bind(this)
+    this.removeBooking = this.removeBooking.bind(this)
+
   }
 
   componentDidMount() {
@@ -21,7 +24,6 @@ class App extends Component {
   }
 
   addBooking(newBooking) {
-    console.log(newBooking)
     const options = {
       method: 'POST',
       body: JSON.stringify(newBooking),
@@ -31,18 +33,16 @@ class App extends Component {
     }
     fetch('http://localhost:3001/api/v1/reservations', options)
       .then(response => response.json())
-      .then(data => console.log(data))
-      // .then(booking => this.setState({ reservations: [...this.state.reservations, booking]}))
+      .then(booking => this.setState({ reservations: [...this.state.reservations, booking]}))
       .catch(errorMessage => this.setState({error: errorMessage}))
   }
 
   removeBooking(id) {
     fetch(`http://localhost:3001/api/v1/reservations/${id}`)
       .then(response => response.json())
-      .then(booking => this.setState({reservations: [...this.state.reservations, booking]}))
+      .then(data => this.setState({reservations: data}))
       .catch(errorMessage => this.setState({error: errorMessage}))
   }
-
 
   render() {
     return (
@@ -52,7 +52,7 @@ class App extends Component {
           <Form addBooking={this.addBooking}/> 
         </div>
         <div className='resy-container'>
-          <ReservationsContainer reservations={this.state.reservations}removeBooking={this.removeBooking}/>
+          <ReservationsContainer reservations={this.state.reservations} removeBooking={this.removeBooking}/>
         </div>
       </div>
     )
